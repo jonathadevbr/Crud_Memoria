@@ -41,6 +41,7 @@ public class Usuario {
         this.email = email;
     }
 
+    @Override
     public String toString(){
         return "ID " + id + ", NOME: " + nome + ", EMAIL: " + email;
     }

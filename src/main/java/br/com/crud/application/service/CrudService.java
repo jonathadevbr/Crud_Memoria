@@ -23,15 +23,18 @@ public class CrudService {
         String email = entrada.nextLine();
 
         //Criar objeto usando o construtor que fizemos no "Usuario.java"
-        Usuario usuario = new Usuario(nome, email);
+        Usuario user = new Usuario(nome, email);
         //Aumenta em 1 a mais a cada Usuario que é criado
-        usuario.setId(proximoId++);
+        user.setId(proximoId++);
 
         //Adicionar na lista/"banco de dados"
-        ListaPessoa.add(usuario);
-        System.out.println("Usuário adicionado, seu id é: " + usuario.getId()
+        ListaPessoa.add(user);
+        System.out.println("Usuário adicionado, seu id é: " + user.getId()
         );
+    }
 
-        System.out.println(usuario.toString());
+    public void MostrarUsuario(){
+        System.out.println("#####MOSTRAR USUÁRIO####");
+        for (Usuario user : ListaPessoa) System.out.println(user);
     }
 }

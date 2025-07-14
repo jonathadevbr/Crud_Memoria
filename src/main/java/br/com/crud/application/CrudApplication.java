@@ -28,6 +28,9 @@ public class CrudApplication {
                 case 1:
                     service.CriarUsuario();
                     break;
+                case 2:
+                    service.MostrarUsuario();
+                    break;
                 default:
                     System.out.println("Programa encerrado!");
             }
