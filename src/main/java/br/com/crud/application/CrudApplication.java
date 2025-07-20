@@ -13,7 +13,7 @@ public class CrudApplication {
         int opcao = 0;
 
         System.out.println("Bem-vindo ao CRUD da memória!");
-        System.out.print("Digite uma opção das abaixo para fazer seu crud: ");
+        System.out.println("Digite uma opção das abaixo para fazer seu crud: ");
         //do serve para eu repitir varias vezes (com base no while) determinado comando de código
         do {
             System.out.println("1. Cadastrar novo usuário");
@@ -26,16 +26,26 @@ public class CrudApplication {
             opcao = entrada.nextInt();
             switch (opcao) {
                 case 1:
+                    System.out.println("CADASTRAR NOVO USUÁRIO");
                     service.CriarUsuario();
                     break;
                 case 2:
-                    service.MostrarUsuario();
+                    System.out.println("MOSTRAR USUÁRIO");
+                    service.ListarUsuario();
                     break;
+//                case 3:
+//                    System.out.println("ATUALIZAR USUÁRIO");
+//                    service.ListarUsuario();
+//                    //service.AtualizarUsuario();
+//                    break;
+//                case 4:
+//                    //service.DeletarUsuario();
+//                    break;
                 default:
                     System.out.println("Programa encerrado!");
             }
         }
-        while (opcao != 5) ;
+        while (opcao != 5);
         entrada.close();
     }
 }

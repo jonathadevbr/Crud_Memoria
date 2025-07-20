@@ -1,6 +1,7 @@
 package br.com.crud.application.service;
 
 import br.com.crud.application.model.Usuario;
+import br.com.crud.application.repository.CrudRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,33 +9,83 @@ import java.util.Scanner;
 
 public class CrudService {
 
-    //Criando a Lista que vai "substituir" o banco de dados
-    //List<Pessoa> -> So podem entrar dados do tipo de objeto "Pessoa"
-    private List<Usuario> ListaPessoa = new ArrayList<>();
-    private long proximoId = 1;
-    private Scanner entrada = new Scanner(System.in);
+    CrudRepository crudRepository = new CrudRepository();
+    long proximoId = 1;
+    Scanner entrada = new Scanner(System.in);
 
     public void CriarUsuario() {
-        System.out.println("#####CADASTRAR NOVO USUÁRIO####");
         System.out.print("Digite o nome: ");
-        String nome = entrada.nextLine();
+        String nome = entrada.next();
 
         System.out.print("Digite o email: ");
-        String email = entrada.nextLine();
+        String email = entrada.next();
 
-        //Criar objeto usando o construtor que fizemos no "Usuario.java"
         Usuario user = new Usuario(nome, email);
-        //Aumenta em 1 a mais a cada Usuario que é criado
         user.setId(proximoId++);
 
-        //Adicionar na lista/"banco de dados"
-        ListaPessoa.add(user);
-        System.out.println("Usuário adicionado, seu id é: " + user.getId()
-        );
+        crudRepository.ListaUsuarios.add(user);
+        System.out.println("Usuário " + user.getNome() + " + , seu id é: " + user.getId());
     }
 
-    public void MostrarUsuario(){
-        System.out.println("#####MOSTRAR USUÁRIO####");
-        for (Usuario user : ListaPessoa) System.out.println(user);
+    public void ListarUsuario() {
+        int opcaoListar = 0;
+        do {
+            System.out.print("Digite que tipo de pesquisa deseja fazer (1 - Pesquisa geral e 2 - Pesquisa especifica: ");
+            opcaoListar = entrada.nextInt();
+            switch (opcaoListar) {
+                case 1:
+                    crudRepository.ListarTodos();
+                    break;
+                case 2:
+                    crudRepository.ListarEspecifico();
+                    break;
+                default:
+                    System.out.println("Opção Invalida! Coloque uma opção valida!");
+            }
+        }
+        while (opcaoListar > 2);
     }
+
+    public void AtualizarUsuario() {
+        System.out.print("Digite o que deseja alterar (1 - Nome e 2 - Email): ");
+        int opcao = entrada.nextInt();
+        if (opcao == 1) {
+            System.out.print("Digite o ID do usuário que deseja alterar o nome: ");
+            int idUsuario = entrada.nextInt();
+            idUsuario = idUsuario - 1;
+
+            entrada.nextLine();
+
+            System.out.print("Digite o novo nome do usuário: ");
+            String newNome = entrada.nextLine();
+
+            crudRepository.ListaUsuarios.get(idUsuario).setNome(newNome);
+        } else if (opcao == 2) {
+            System.out.print("Digite o ID do usuário que deseja alterar o email: ");
+            int idUsuario = entrada.nextInt();
+            idUsuario -= 1;
+
+            entrada.nextLine();
+
+            System.out.print("Digite o novo email do usuário: ");
+            String newEmail = entrada.nextLine();
+
+            crudRepository.ListaUsuarios.get(idUsuario).setEmail(newEmail);
+        } else {
+            System.out.println("Opção Invalida!");
+        }
+    }
+
+//    public void DeletarUsuario() {
+//        System.out.println("#####DELETAR USUÁRIO####");
+//        ListarUsuario();
+//        System.out.print("Digite o ID do usuário que deseja deletar: ");
+//        int idUsuario = entrada.nextInt();
+//        idUsuario -= 1;
+//
+//        ListaPessoa.remove(idUsuario);
+//
+//        ListarUsuario();
+//
+//    }
 }
