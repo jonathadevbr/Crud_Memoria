@@ -42,7 +42,7 @@ public class CrudApplication {
                     System.out.println("MOSTRAR TODOS USUÁRIO\n");
                     service.MostrarUsuario();
                     System.out.println("\n");
-//                    break;
+                    break;
 //                case 3:
 //                  MOSTRAR USUARIO POR ATRIBUTO
 //                case 4:
