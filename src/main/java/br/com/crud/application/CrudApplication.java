@@ -1,6 +1,6 @@
 package br.com.crud.application;
 
-import br.com.crud.application.repository.CrudRepository;
+import br.com.crud.application.model.Usuario;
 import br.com.crud.application.service.CrudService;
 
 import java.util.Scanner;
@@ -35,8 +35,8 @@ public class CrudApplication {
 
                     System.out.print("Digite o email: ");
                     String email = entrada.next();
-                    service.CriarUsuario(nome, email);
-                    System.out.println("Usuário " + nome + ", seu email é: " + email + "\n");
+                    Usuario novoUsuario = service.CriarUsuario(nome, email);
+                    System.out.println("Usuário " + nome + ", seu ID é: " + novoUsuario.getId() + "\n");
                     break;
                 case 2:
                     System.out.println("MOSTRAR TODOS USUÁRIO\n");
