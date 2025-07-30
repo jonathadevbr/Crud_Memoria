@@ -20,10 +20,9 @@ public class CrudApplication {
         do {
             System.out.println("1. Cadastrar novo usuário");
             System.out.println("2. Mostrar todos os usuário");
-            System.out.println("3. Mostrar usuário por atributo");
-            System.out.println("4. Atualizar usuário");
-            System.out.println("5. Deletar usuário");
-            System.out.println("6. Sair\n");
+            System.out.println("3. Atualizar usuário");
+            System.out.println("4. Deletar usuário");
+            System.out.println("5. Sair\n");
             System.out.print("Escolha a opção: ");
 
             opcao = entrada.nextInt();
@@ -44,11 +43,14 @@ public class CrudApplication {
                     System.out.println("\n");
                     break;
 //                case 3:
-//                  MOSTRAR USUARIO POR ATRIBUTO
-//                case 4:
-//                  ATUALIZAR
-//                case 5:
-//                  DELETAR
+
+                case 4:
+                    System.out.println("DELETAR USUÁRIO\n");
+                    System.out.print("Digite o ID do usuário que deseja deletar: ");
+                    int id = entrada.nextInt();
+                    service.DeletarUsuario(id);
+                    System.out.println("Usuário do ID " + id + " foi deletado!");
+                    break;
                 default:
                     System.out.println("Programa encerrado!");
             }

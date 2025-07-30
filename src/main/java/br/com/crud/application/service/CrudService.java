@@ -8,11 +8,19 @@ import br.com.crud.application.repository.CrudRepository;
 public class CrudService {
     CrudRepository crudRepository = new CrudRepository();
 
+    public CrudService(){
+        crudRepository.testeUsuarios();
+    }
+
     public Usuario CriarUsuario(String nomeCriarUsuario, String emailCriarUsuario) {
         return crudRepository.addUsuario(nomeCriarUsuario, emailCriarUsuario);
     }
 
     public void MostrarUsuario() {
-        crudRepository.listarUsurio();
+        crudRepository.listarUsuario();
+    }
+
+    public void DeletarUsuario(int idDeletarUsuario) {
+        crudRepository.deletUsuario(idDeletarUsuario);
     }
 }

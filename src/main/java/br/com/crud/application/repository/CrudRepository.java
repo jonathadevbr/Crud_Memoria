@@ -16,9 +16,19 @@ public class CrudRepository {
         return user;
     }
 
-    public void listarUsurio() {
+    public void listarUsuario() {
         for (Usuario user : ListaUsuarios)
             System.out.println(user);
     }
-}
 
+    public void deletUsuario(int idDeleteUsuario){
+        ListaUsuarios.removeIf(usuario -> usuario.getId() == idDeleteUsuario);
+    }
+
+    public void testeUsuarios(){
+        addUsuario("Jonatha", "jonatha@gmail.com");
+        addUsuario("Pedro", "pedro@gmail.com");
+        addUsuario("Maria", "maria@gmail.com");
+
+    }
+}
