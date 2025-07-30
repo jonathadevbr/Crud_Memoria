@@ -12,15 +12,23 @@ public class CrudService {
         crudRepository.testeUsuarios();
     }
 
-    public Usuario CriarUsuario(String nomeCriarUsuario, String emailCriarUsuario) {
+    public Usuario criarUsuario(String nomeCriarUsuario, String emailCriarUsuario) {
         return crudRepository.addUsuario(nomeCriarUsuario, emailCriarUsuario);
     }
 
-    public void MostrarUsuario() {
+    public void mostrarUsuario() {
         crudRepository.listarUsuario();
     }
 
-    public void DeletarUsuario(int idDeletarUsuario) {
+    public void atualizarUsuarioNome(int idAtualizarNome, String novoNome){
+        crudRepository.updateUsuarioNome(idAtualizarNome, novoNome);
+    }
+
+    public void atualizarUsuarioEmail(int idAtualizarNome, String novoEmail){
+        crudRepository.updateUsuarioEmail(idAtualizarNome, novoEmail);
+    }
+
+    public void deletarUsuario(int idDeletarUsuario) {
         crudRepository.deletUsuario(idDeletarUsuario);
     }
 }

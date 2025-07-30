@@ -34,25 +34,50 @@ public class CrudApplication {
 
                     System.out.print("Digite o email: ");
                     String email = entrada.next();
-                    Usuario novoUsuario = service.CriarUsuario(nome, email);
+                    Usuario novoUsuario = service.criarUsuario(nome, email);
                     System.out.println("Usuário " + nome + ", seu ID é: " + novoUsuario.getId() + "\n");
                     break;
                 case 2:
                     System.out.println("MOSTRAR TODOS USUÁRIO\n");
-                    service.MostrarUsuario();
+                    service.mostrarUsuario();
                     System.out.println("\n");
                     break;
-//                case 3:
+                case 3:
+                    System.out.println("ATUALIZAR USUÁRIO\n");
+                    System.out.print("Digite o ID do usuário que deseja alterar o nome ou email: ");
+                    int idAtualizar = entrada.nextInt();
 
+                    System.out.print("Digite 1 para mudar o nome ou 2 para mudar o email: ");
+                    int opcaoNomeEmail = entrada.nextInt();
+
+                    if (opcaoNomeEmail == 1){
+                        System.out.print("Digite o novo nome do usuário: ");
+                        String novoNome = entrada.next();
+                        service.atualizarUsuarioNome(idAtualizar, novoNome);
+                    } else if (opcaoNomeEmail == 2) {
+                        System.out.print("Digite o novo email do usuário: ");
+                        String novoEmail = entrada.next();
+                        service.atualizarUsuarioEmail(idAtualizar, novoEmail);
+
+                    } else {
+                        System.out.print("Opção Invalida!");
+                    }
+
+                    break;
                 case 4:
                     System.out.println("DELETAR USUÁRIO\n");
                     System.out.print("Digite o ID do usuário que deseja deletar: ");
-                    int id = entrada.nextInt();
-                    service.DeletarUsuario(id);
-                    System.out.println("Usuário do ID " + id + " foi deletado!");
+                    int idDeletar = entrada.nextInt();
+                    service.deletarUsuario(idDeletar);
+                    System.out.println("Usuário do ID " + idDeletar + " foi deletado!");
                     break;
+                case 5:
+                    System.out.println("Programa encerrado");;
+                    break;
+
                 default:
-                    System.out.println("Programa encerrado!");
+                    System.out.println("Opção invalida");
+                    break;
             }
         }
         while (opcao != 5);
