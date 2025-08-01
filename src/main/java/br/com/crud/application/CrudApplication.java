@@ -3,6 +3,7 @@ package br.com.crud.application;
 import br.com.crud.application.model.Usuario;
 import br.com.crud.application.service.CrudService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CrudApplication {
@@ -25,7 +26,15 @@ public class CrudApplication {
             System.out.println("5. Sair\n");
             System.out.print("Escolha a opção: ");
 
-            opcao = entrada.nextInt();
+            try {
+                opcao = entrada.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("Erro: Por favor, digite uma das opções: ");
+                entrada.nextLine();
+                opcao = 0;
+                continue;
+            }
+
             switch (opcao) {
                 case 1:
                     System.out.println("CADASTRAR NOVO USUÁRIO\n");
@@ -44,35 +53,75 @@ public class CrudApplication {
                     break;
                 case 3:
                     System.out.println("ATUALIZAR USUÁRIO\n");
-                    System.out.print("Digite o ID do usuário que deseja alterar o nome ou email: ");
-                    int idAtualizar = entrada.nextInt();
-
-                    System.out.print("Digite 1 para mudar o nome ou 2 para mudar o email: ");
-                    int opcaoNomeEmail = entrada.nextInt();
-
-                    if (opcaoNomeEmail == 1){
-                        System.out.print("Digite o novo nome do usuário: ");
-                        String novoNome = entrada.next();
-                        service.atualizarUsuarioNome(idAtualizar, novoNome);
-                    } else if (opcaoNomeEmail == 2) {
-                        System.out.print("Digite o novo email do usuário: ");
-                        String novoEmail = entrada.next();
-                        service.atualizarUsuarioEmail(idAtualizar, novoEmail);
-
-                    } else {
-                        System.out.print("Opção Invalida!");
+                    int idAtualizar;
+                    do {
+                        System.out.print("Digite o ID do usuário que deseja alterar o nome ou email: ");
+                        try {
+                            idAtualizar = entrada.nextInt();
+                        } catch (InputMismatchException e){
+                            System.out.print("Erro: Por favor, digite um ID válido: ");
+                            entrada.nextLine();
+                            idAtualizar = 0;
+                        }
                     }
+                    while (!service.verificarIdUsuario(idAtualizar));
+                    if (service.verificarIdUsuario(idAtualizar)){
+                        System.out.print("Digite 1 para mudar o NOME ou 2 para mudar o EMAIL: ");
+                        int opcaoNomeEmail;
+                        do {
+                            try {
+                                opcaoNomeEmail = entrada.nextInt();
 
+                                if (opcaoNomeEmail != 1 && opcaoNomeEmail != 2){
+                                    System.out.print("Erro: Por favor, digite somente 1 ou 2: ");
+                                }
+                            } catch (InputMismatchException e){
+                                System.out.print("Erro: Por favor, digite uma das opções: ");
+                                entrada.nextLine();
+                                opcaoNomeEmail = 0;
+                            }
+                        }
+                        while (opcaoNomeEmail != 1 && opcaoNomeEmail != 2);
+
+                        entrada.nextLine();
+
+                        if (opcaoNomeEmail == 1){
+                            System.out.print("Digite o novo nome do usuário: ");
+                            String novoNome = entrada.nextLine();
+                            service.atualizarUsuarioNome(idAtualizar, novoNome);
+                        } else {
+                            System.out.print("Digite o novo email do usuário: ");
+                            String novoEmail = entrada.nextLine();
+                            service.atualizarUsuarioEmail(idAtualizar, novoEmail);
+
+                        }
+                    } else {
+                        System.out.println("Erro: Usuário com ID " + idAtualizar + " não foi encontrado.");
+                    }
                     break;
                 case 4:
                     System.out.println("DELETAR USUÁRIO\n");
-                    System.out.print("Digite o ID do usuário que deseja deletar: ");
-                    int idDeletar = entrada.nextInt();
-                    service.deletarUsuario(idDeletar);
-                    System.out.println("Usuário do ID " + idDeletar + " foi deletado!");
+                    int idDeletar;
+                    do {
+                        System.out.print("Digite o ID do usuário que deseja deletar: ");
+                        try {
+                            idDeletar = entrada.nextInt();
+                        } catch (InputMismatchException e){
+                            System.out.println("Erro: Por favor, digite um ID válido: ");
+                            entrada.nextLine();
+                            idDeletar = 0;
+                        }
+                    }
+                    while (idDeletar <= 0);
+                    if (service.verificarIdUsuario(idDeletar)){
+                        service.deletarUsuario(idDeletar);
+                        System.out.println("Usuário do ID " + idDeletar + " foi deletado!");
+                    } else {
+                        System.out.println("Erro: Usuário com ID " + idDeletar + " não foi encontrado.");
+                    }
                     break;
                 case 5:
-                    System.out.println("Programa encerrado");;
+                    System.out.println("Programa encerrado");
                     break;
 
                 default:

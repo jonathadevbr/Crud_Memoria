@@ -15,6 +15,15 @@ public class CrudRepository {
         addUsuario("Maria", "maria@gmail.com");
     }
 
+    public boolean verificarId(int idUsuario){
+        for (Usuario user : ListaUsuarios){
+            if (user.getId() == idUsuario){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Usuario addUsuario(String nomeAddUsuario, String emailAddUsuario) {
         Usuario user = new Usuario(nomeAddUsuario, emailAddUsuario);
         user.setId(++proximoId);
@@ -28,9 +37,9 @@ public class CrudRepository {
     }
 
     public void updateUsuarioNome(int idAtualizarUsuario, String nomeNovo){
-        for (Usuario usuario : ListaUsuarios) {
-            if (usuario.getId() == idAtualizarUsuario){
-                usuario.setNome(nomeNovo);
+        for (Usuario user : ListaUsuarios) {
+            if (user.getId() == idAtualizarUsuario){
+                user.setNome(nomeNovo);
                 break;
             }
         }

@@ -12,6 +12,10 @@ public class CrudService {
         crudRepository.testeUsuarios();
     }
 
+    public boolean verificarIdUsuario(int idUsuario){
+        return crudRepository.verificarId(idUsuario);
+    }
+
     public Usuario criarUsuario(String nomeCriarUsuario, String emailCriarUsuario) {
         return crudRepository.addUsuario(nomeCriarUsuario, emailCriarUsuario);
     }
