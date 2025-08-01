@@ -63,7 +63,7 @@ public class CrudApplication {
                             entrada.nextLine();
                             idAtualizar = 0;
                         }
-                    }git
+                    }
                     while (!service.verificarIdUsuario(idAtualizar));
                     if (service.verificarIdUsuario(idAtualizar)){
                         System.out.print("Digite 1 para mudar o NOME ou 2 para mudar o EMAIL: ");
